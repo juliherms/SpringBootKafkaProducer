@@ -11,6 +11,7 @@ public class User {
 	private String login;
 	private String name;
 	private String email;
+	private String message;
 
 	public String getLogin() {
 		return login;
@@ -36,10 +37,19 @@ public class User {
 		this.email = email;
 	}
 
-	public User(String login, String name, String email) {
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public User(String login, String name, String email, String message) {
 		super();
 		this.login = login;
 		this.name = name;
 		this.email = email;
+		this.message = message;
 	}
 }

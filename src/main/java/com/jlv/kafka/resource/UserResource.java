@@ -41,8 +41,9 @@ public class UserResource {
 
 		//this method is async. I need to get promisse.
 		ListenableFuture<SendResult<String, User>> future = kafkaTemplate.send(topic,
-				new User("juliherms", "Juliherms Vasconcelos", "j.a.vasconcelos@gmail.com"));
+				new User("juliherms", "Juliherms Vasconcelos", "j.a.vasconcelos321@gmail.com",message));
 
+		
 		future.addCallback(new ListenableFutureCallback<SendResult<String, User>>() {
 
 			@Override
