@@ -1,6 +1,7 @@
 package com.jlv.kafka.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.util.concurrent.ListenableFuture;
@@ -24,8 +25,10 @@ public class UserResource {
 
 	@Autowired
 	private KafkaTemplate<String, User> kafkaTemplate;
+	
+	@Value("${server.kafka.topic}")
+	private String topic;
 
-	private static final String TOPIC = "kafka_Example";
 
 	/**
 	 * Method responsible to send menssage to kafka topic
@@ -37,7 +40,7 @@ public class UserResource {
 	public String post(@PathVariable("message") final String message) {
 
 		//this method is async. I need to get promisse.
-		ListenableFuture<SendResult<String, User>> future = kafkaTemplate.send(TOPIC,
+		ListenableFuture<SendResult<String, User>> future = kafkaTemplate.send(topic,
 				new User("juliherms", "Juliherms Vasconcelos", "j.a.vasconcelos@gmail.com"));
 
 		future.addCallback(new ListenableFutureCallback<SendResult<String, User>>() {

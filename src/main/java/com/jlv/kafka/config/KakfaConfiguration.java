@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
@@ -24,6 +25,9 @@ import com.jlv.kafka.model.User;
 public class KakfaConfiguration {
 
 
+	@Value("${server.kafka.address}")
+	private String serverAddress;
+	
 	/**
 	 * Connection to zookeper and kafka
 	 * @return
@@ -32,7 +36,7 @@ public class KakfaConfiguration {
     public ProducerFactory<String, User> producerFactory() {
         Map<String, Object> config = new HashMap<>();
 
-        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, serverAddress);
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         
